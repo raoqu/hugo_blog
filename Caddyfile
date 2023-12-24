@@ -1,0 +1,26 @@
+http://localhost, https://localhost {
+	bind 127.0.0.1
+
+	handle /api/* {
+		reverse_proxy localhost:8062
+	}
+
+	root * public/
+	encode gzip
+
+	file_server
+}
+
+http://localhost:1111 {
+	bind 127.0.0.1
+
+	handle /api/* {
+		reverse_proxy localhost:8062
+	}
+
+	root * website/
+	bin website.bin
+	encode gzip
+
+	bin_server
+}
